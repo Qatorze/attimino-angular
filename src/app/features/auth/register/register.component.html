@@ -1,0 +1,106 @@
+<div
+  class="module-container d-flex flex-justify-content-center flex-align-items-center"
+>
+  <form
+    class="formulaire d-flex flex-column"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+    <h3 class="form-title">Register</h3>
+
+    <div class="form-control d-flex flex-column">
+      <label for="name">Name<span class="asterisco">*</span></label>
+      <input
+        formControlName="name"
+        type="text"
+        id="name"
+        name="name"
+        placeholder="Inserisci il tuo nome"
+        (change)="updateFormErrors()"
+      />
+      <div *ngIf="formErrors['name'].message">
+        <p class="errorText">
+          {{ formErrors["name"].message }}
+        </p>
+      </div>
+    </div>
+
+    <div class="form-control d-flex flex-column">
+      <label for="surname">Surname<span class="asterisco">*</span></label>
+      <input
+        formControlName="surname"
+        type="text"
+        id="surname"
+        name="surname"
+        placeholder="Inserisci il tuo cognome"
+        (change)="updateFormErrors()"
+      />
+      <div *ngIf="formErrors['surname'].message">
+        <p class="errorText">
+          {{ formErrors["surname"].message }}
+        </p>
+      </div>
+    </div>
+
+    <div class="form-control d-flex flex-column">
+      <label for="email">Email<span class="asterisco">*</span></label>
+      <input
+        formControlName="email"
+        type="email"
+        id="email"
+        name="email"
+        placeholder="exemple@gmail.com"
+        (change)="updateFormErrors()"
+      />
+      <div *ngIf="formErrors['email'].message">
+        <p class="errorText">
+          {{ formErrors["email"].message }}
+        </p>
+      </div>
+    </div>
+
+    <div class="form-control d-flex flex-column">
+      <label for="password">Password<span class="asterisco">*</span></label>
+      <input
+        formControlName="password"
+        type="password"
+        id="password"
+        name="password"
+        placeholder="Digita password"
+        (change)="updateFormErrors()"
+      />
+      <div *ngIf="formErrors['password'].message">
+        <p class="errorText">
+          {{ formErrors["password"].message }}
+        </p>
+      </div>
+    </div>
+
+    <div class="form-control d-flex flex-column">
+      <label for="confirmPassword"
+        >Conferma Password<span class="asterisco">*</span></label
+      >
+      <input
+        formControlName="confirmPassword"
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="Conferma password"
+        (change)="updateFormErrors()"
+      />
+      <div *ngIf="formErrors['confirmPassword'].message">
+        <p class="errorText">
+          {{ formErrors["confirmPassword"].message }}
+        </p>
+      </div>
+    </div>
+
+    <!-- Errore generale del form -->
+    <div *ngIf="formErrors['form'].message">
+      <div class="separator"></div>
+      <p class="errorText">{{ formErrors["form"].message }}</p>
+    </div>
+
+    <button class="btn btn-primary mb-5 mt-10">Submit</button>
+  </form>
+</div>

@@ -1,0 +1,56 @@
+<div
+  class="module-container d-flex flex-justify-content-center flex-align-items-center"
+>
+  <form
+    class="formulaire d-flex flex-column"
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+  >
+    <h3 class="form-title">Login</h3>
+
+    <div class="form-control d-flex flex-column">
+      <label for="email">Email<span class="asterisco">*</span></label>
+      <input
+        formControlName="email"
+        type="text"
+        id="email"
+        name="email"
+        placeholder="exemple@gmail.com"
+        (change)="updateFormErrors()"
+      />
+    </div>
+
+    <div class="form-control d-flex flex-column">
+      <label for="password">Password<span class="asterisco">*</span></label>
+      <input
+        formControlName="password"
+        name="password"
+        type="password"
+        id="password"
+        placeholder="digitare la password"
+        (change)="updateFormErrors()"
+      />
+    </div>
+
+    <!-- Errore generale del form -->
+    <div *ngIf="formErrors['form'].message">
+      <div class="separator"></div>
+      <p class="errorText">{{ formErrors["form"].message }}</p>
+    </div>
+    <!-- <button class="btn btn-primary mb-5 mt-10">Sign in</button> -->
+    <!-- Pulsante o indicatore di caricamento -->
+    <div class="button-container mt-10">
+      <!-- Mostra lo spinner durante il caricamento -->
+      <button class="btn btn-primary mb-5" *ngIf="!loading" type="submit">
+        Sign in
+      </button>
+
+      <div class="loading-spinner mb-5" *ngIf="loading">
+        <!-- Puoi usare un'icona o un testo -->
+        <span>Caricamento...</span>
+        <!-- Se usi una libreria di icone, ad esempio FontAwesome -->
+        <!-- <i class="fa fa-spinner fa-spin"></i> -->
+      </div>
+    </div>
+  </form>
+</div>

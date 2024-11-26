@@ -1,0 +1,11 @@
+<p>random-card works!</p>
+<div class="card">
+  <img [src]="imageUrl" alt="Immagine casuale" class="card-image" />
+  <div class="card-content">
+    <h2 class="card-title">Immagine Casuale</h2>
+    <p class="card-description">{{ description }}</p>
+  </div>
+  <button class="card-button" (click)="generateRandomCard()">
+    Genera Nuova Card
+  </button>
+</div>

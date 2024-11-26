@@ -1,0 +1,18 @@
+.admin-container {
+  padding: 20px;
+  gap: 20px;
+  .sidebar {
+    padding: 20px;
+    height: calc(100vh - 40px);
+    background-color: var(--dark-gray);
+    border-radius: 10px;
+    color: white;
+  }
+
+  .admin-page {
+    padding: 20px;
+    height: calc(100vh - 40px);
+    background-color: var(--accent);
+    border-radius: 10px;
+  }
+}

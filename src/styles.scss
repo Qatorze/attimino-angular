@@ -1,0 +1,209 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: inherit; //Pour pas avoir la couleur par default et donc hériter de la couleur du parent
+  cursor: pointer;
+}
+
+/*Definition de variables*/
+:root {
+  --font-family: "Kalam", cursive;
+  /* Colore principale (Verde Oliva) */
+  --primary: #b1a64b;
+
+  /* Colore secondario (Beige Chiaro) */
+  --secondary: #8c6e45;
+  --secondary-2: #dcd6ba;
+
+  --accent: #4b8490; /* Blu Grigio */
+  --accent-blue: #a1b8c8; /* Blu Polvere Chiaro */
+  --accent-blueLight: #d1e0e8; /* Blu Chiaro/Grigio Neutro */
+
+  /* Neutri */
+  --lightGray: #ddd;
+  --text-regular: #333; /* Testo regolare */
+
+  /* Aggiunto un bianco sporco per sfondi */
+  --background-light: #efefef;
+
+  /* Aggiunto un grigio scuro per contrasto */
+  --dark-gray: #4b4b4b;
+}
+
+body {
+  padding: 0 100px;
+  min-height: 100vh;
+  background-color: var(--background-light);
+}
+
+// Layout
+
+.module-container {
+  background-color: var(--primary);
+  min-height: 100vh;
+}
+
+.page-container {
+  background-color: var(--accent-blue);
+  border-radius: 10px;
+  margin: 0 40px;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-column {
+  flex-direction: column;
+}
+
+.flex-justify-content-center {
+  justify-content: center;
+}
+
+.flex-justify-content-between {
+  justify-content: space-between;
+}
+
+.flex-align-items-center {
+  align-items: center;
+}
+
+.flex-align-items-between {
+  align-items: space-between;
+}
+
+.flex-fill {
+  flex: 1 1 auto; // Pour que l'élément prenne tout l'espace disponible
+}
+
+.flex-30 {
+  flex: 1 1 30%;
+}
+
+.flex-40 {
+  flex: 1 1 40%;
+}
+
+.flex-50 {
+  flex: 1 1 50%;
+}
+
+.flex-60 {
+  flex: 1 1 60%;
+}
+
+.flex-70 {
+  flex: 1 1 70%;
+}
+
+//Utils
+
+.w-50 {
+  width: 50%;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.p-5 {
+  padding: 5px;
+}
+
+.p-10 {
+  padding: 10px;
+}
+
+.p-15 {
+  padding: 15px;
+}
+
+.p-20 {
+  padding: 20px;
+}
+
+.p-25 {
+  padding: 25px;
+}
+
+.m-5 {
+  margin: 5px;
+}
+
+.m-10 {
+  margin: 10px;
+}
+
+.m-15 {
+  margin: 15px;
+}
+
+.m-20 {
+  margin: 20px;
+}
+
+.m-25 {
+  margin: 25px;
+}
+
+.mt-5 {
+  margin-top: 5px;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mt-25 {
+  margin-top: 25px;
+}
+
+.mb-5 {
+  margin-bottom: 5px;
+}
+
+.mb-10 {
+  margin-bottom: 10px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.mb-25 {
+  margin-bottom: 25px;
+}
+
+// Components
+
+.formulaire {
+  width: 410px;
+  padding: 15px 25px;
+  color: white;
+  border: 1px solid var(--lightGray);
+  background-color: var(--dark-gray);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
