@@ -62,18 +62,13 @@ export class LoginComponent implements OnInit {
       this.authService.login$(email, password).subscribe({
         next: (user) => {
           const role = this.authService.getUserRole();
+          this.loading = true; // Chargement avant la navigation
 
           if (role === 'user') {
-            this.authService.setToken(user.name!);
-
-            this.loading = true; // Chargement avant la navigation
             this.router.navigate(['/user/feed']).finally(() => {
               this.loading = false; // Fin du chargement
             });
           } else if (role === 'admin') {
-            this.authService.setToken(user.name!);
-
-            this.loading = true; // Chargement avant la navigation
             this.router.navigate(['/admin/dashboard']).finally(() => {
               this.loading = false; // Fin du chargement
             });

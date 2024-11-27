@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { User } from '../interfaces/user';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -19,43 +20,94 @@ export class AuthService {
   );
 
   constructor(private http: HttpClient) {
-    // Recupera il token dell'utente se sono presenti nel session storage.
     const token = sessionStorage.getItem('authToken');
     if (token) {
       this.userToken$.next(token);
+
+      // Decodifica il token JWT
+      const decodedToken = jwtDecode<{
+        id: number;
+        email: string;
+        role: string;
+        surname: string;
+        name: string;
+        imagePath: string;
+      }>(token);
+
+      const user: User = {
+        id: decodedToken.id,
+        email: decodedToken.email,
+        role: decodedToken.role,
+        surname: decodedToken.surname || '', // Gestione nel caso in cui non sia presente
+        name: decodedToken.name || '', // Gestione nel caso in cui non sia presente
+        password: '', // Non è incluso nel token, quindi vuoto
+        imagePath: decodedToken.imagePath || '', // Gestione nel caso in cui non sia presente
+      };
+
+      this.user$.next(user); // Aggiorna il BehaviorSubject dell'utente
     }
 
-    // Recupera i dati dell'utente logato se sono presenti nel session storage.
     const storedUser = sessionStorage.getItem('user');
     if (storedUser) {
-      this.user$.next(JSON.parse(storedUser)); // Ripristina il cliente nel BehaviorSubject
+      this.user$.next(JSON.parse(storedUser)); // Ripristina l'utente dal sessionStorage
     }
   }
 
   // Questo metodo mi consente di salvare il token nella session storage dell'utente che fa l'accesso
-  public setToken(userName: string): void {
-    const token = `${userName}-attiminoToken`; // Definisco la stringa del mio token
-    this.userToken$.next(token); // Aggiorno il mio BehaviorSubject "clienteToken$"
-    sessionStorage.setItem('authToken', token); // Salvo il token nella sessionStorage
+  public setToken(token: string): void {
+    this.userToken$.next(token); // Aggiorna il BehaviorSubject del token
+    sessionStorage.setItem('authToken', token); // Salva il token nella sessionStorage
+
+    // Decodifica il token JWT
+    const decodedToken = jwtDecode<{
+      id: number;
+      email: string;
+      role: string;
+      surname: string;
+      name: string;
+      imagePath: string;
+    }>(token);
+
+    // Crea un oggetto User basato sui dati del token
+    const user: User = {
+      id: decodedToken.id,
+      email: decodedToken.email,
+      role: decodedToken.role,
+      surname: decodedToken.surname || '', // Gestione del campo "surname"
+      name: decodedToken.name || '', // Gestione del campo "name"
+      password: '', // Vuoto, il token non contiene la password
+      imagePath: decodedToken.imagePath || '', // Gestione del campo "imagePath"
+    };
+
+    this.user$.next(user); // Aggiorna il BehaviorSubject dell'utente
+    sessionStorage.setItem('user', JSON.stringify(user)); // Salva l'utente nella sessionStorage
   }
 
   // Metodo per effettuare l'accesso
-  public login$(email: string, password: string): Observable<User> {
+  public login$(
+    email: string,
+    password: string
+  ): Observable<{ token: string }> {
     // Oggetto per la richiesta di "login" che mandiamo poi al server. Costituisce il body della chiamata HTTP di tipo "post"
     const loginRequest = {
       email: email,
       password: password,
     };
 
-    return this.http.post<User>(`${this.apiBaseUrl}/login`, loginRequest).pipe(
-      tap((user: User) => {
-        this.user$.next(user); // Aggiorno il mio BehaviorSubject "cliente$"
-        if (user.role === 'admin' || user.role === 'user') {
-          sessionStorage.setItem('user', JSON.stringify(user)); // Salvo l'utente logato nella sessionStorage
-        }
-      }),
-      catchError(this.handleError('login'))
-    );
+    /** "{ withCredentials: true }" pour permettre l'envoie des cookies tra il frontend e le backend */
+    return this.http
+      .post<{ token: string }>(`${this.apiBaseUrl}/login`, loginRequest, {
+        withCredentials: true,
+      })
+      .pipe(
+        tap((response) => {
+          const token = response.token;
+
+          // Imposta il token e decodifica i dati
+          this.setToken(token);
+        }),
+        catchError(this.handleError('login'))
+      );
   }
 
   // Metodo per registrare un nuovo utente
@@ -95,10 +147,8 @@ export class AuthService {
 
   // Pulisce i BehaviorSubjects "cliente$" et "clienteToken$" et la session storage
   public logout(): void {
-    // Pulizia dei BehaviorSubjects
     this.user$.next(null);
     this.userToken$.next(null);
-    // Pulizia delle session storage
     sessionStorage.removeItem('user');
     sessionStorage.removeItem('authToken');
   }
