@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { emailValidator } from '../../../core/Validators/email.validator';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { faSmile } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -11,6 +13,10 @@ import { emailValidator } from '../../../core/Validators/email.validator';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent implements OnInit {
+  // Icons
+  faSpinner = faSpinner; // Icona Solid (ad esempio, spinner per il caricamento)
+  faSmile = faSmile; // Icona Regular (ad esempio, una faccina)
+
   public form!: FormGroup;
   public loading: boolean = false; // Pour le chargement lors de l'interaction avec le database
 
@@ -58,36 +64,33 @@ export class LoginComponent implements OnInit {
     if (this.form.valid) {
       const email = this.form.get('email')?.value;
       const password = this.form.get('password')?.value;
+      setTimeout(() => {
+        this.authService.login$(email, password).subscribe({
+          next: (user) => {
+            const role = this.authService.getUserRole();
+            this.loading = true; // Chargement avant la navigation
 
-      this.authService.login$(email, password).subscribe({
-        next: (user) => {
-          const role = this.authService.getUserRole();
-          this.loading = true; // Chargement avant la navigation
-
-          if (role === 'user') {
-            this.router.navigate(['/user/feed']).finally(() => {
-              this.loading = false; // Fin du chargement
-            });
-          } else if (role === 'admin') {
-            this.router.navigate(['/admin/dashboard']).finally(() => {
-              this.loading = false; // Fin du chargement
-            });
-          } else {
-            this.loading = false;
-            // Comportement predefinit, par exemple une page d'erreur ou de logout
-            console.error('Role du user non reconnu');
-            this.formErrors['form'].message =
-              "Erreur durant l'authentication. Contacter le support client.";
-          }
-
-          console.log('user -> ', user);
-        },
-        // Messaggi di errori provenienti dall'authService dopo la sua interazione con il server
-        error: (error) => {
-          this.loading = false; // Fine du chargement en cas d'erreur
-          this.formErrors['form'].message = error.message;
-        },
-      });
+            if (role === 'user') {
+              this.router.navigate(['/user/feed']).finally(() => {
+                this.loading = false; // Fin du chargement
+              });
+            } else if (role === 'admin') {
+              this.router.navigate(['/admin/dashboard']).finally(() => {
+                this.loading = false; // Fin du chargement
+              });
+            } else {
+              this.loading = false;
+              this.formErrors['form'].message =
+                "Erreur durant l'authentication. Contacter le support client.";
+            }
+          },
+          // Messaggi di errori provenienti dall'authService dopo la sua interazione con il server
+          error: (error) => {
+            this.loading = false; // Fine du chargement en cas d'erreur
+            this.formErrors['form'].message = error.message;
+          },
+        });
+      }, 10000); // 10 seconds de retard
     } else {
       this.formErrors['form'].message =
         'Le formulaire est incomplet ou contient des erreurs, verifier les champs.';

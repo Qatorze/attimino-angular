@@ -3,6 +3,10 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, catchError, Observable, tap, throwError } from 'rxjs';
 import { User } from '../interfaces/user';
 import { jwtDecode } from 'jwt-decode';
+import { DecodedToken } from '../interfaces/decoded-token';
+import { LoginRequest } from '../interfaces/login-request';
+import { RegisterRequest } from '../interfaces/register-request';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,12 +23,53 @@ export class AuthService {
     null
   );
 
-  constructor(private http: HttpClient) {
-    const token = sessionStorage.getItem('authToken');
+  constructor(private http: HttpClient, private router: Router) {
+    const token = sessionStorage.getItem('authJWToken');
     if (token) {
       this.userToken$.next(token);
+      this.setToken(token); // Decodifica e imposta il token
+    }
 
-      // Decodifica il token JWT
+    // Imposta i dati utente decodificandoli dal token
+    const user = this.getUserFromToken();
+    if (user) {
+      this.user$.next(user);
+    }
+  }
+
+  // Questo metodo mi consente di salvare il token nella session storage dell'utente che fa l'accesso
+  //Usiamo l'interfaccia DecodedToken per gestire il tipo del token
+
+  // Metodo per salvare il token nella session storage
+  public setToken(token: string): void {
+    try {
+      const decodedToken = jwtDecode<DecodedToken>(token);
+      // Controlla se il ruolo è "admin" o "user"
+      if (decodedToken.role === 'admin' || decodedToken.role === 'user') {
+        this.userToken$.next(token); // Aggiorna il BehaviorSubject del token
+        sessionStorage.setItem('authJWToken', token); // Salva il token nella sessionStorage
+
+        // Aggiorna i dati dell'utente dal token
+        const user = this.getUserFromToken();
+        if (user) {
+          this.user$.next(user); // Aggiorna il BehaviorSubject dell'utente
+        }
+      } else {
+        console.warn(`Ruolo non autorizzato: ${decodedToken.role}`);
+        this.logout(); // Rimuovi ogni traccia se il ruolo non è valido
+      }
+    } catch (error) {
+      console.error('Errore nella decodifica del token:', error);
+      this.logout(); // In caso di token invalido, esegui il logout
+    }
+  }
+
+  // Metodo per ottenere l'utente decodificando il token JWT
+  private getUserFromToken(): User | null {
+    const token = this.getToken();
+    if (!token) return null;
+
+    try {
       const decodedToken = jwtDecode<{
         id: number;
         email: string;
@@ -34,53 +79,19 @@ export class AuthService {
         imagePath: string;
       }>(token);
 
-      const user: User = {
+      return {
         id: decodedToken.id,
         email: decodedToken.email,
         role: decodedToken.role,
-        surname: decodedToken.surname || '', // Gestione nel caso in cui non sia presente
-        name: decodedToken.name || '', // Gestione nel caso in cui non sia presente
-        password: '', // Non è incluso nel token, quindi vuoto
-        imagePath: decodedToken.imagePath || '', // Gestione nel caso in cui non sia presente
+        surname: decodedToken.surname || '',
+        name: decodedToken.name || '',
+        password: '', // Vuoto, il token non contiene la password
+        imagePath: decodedToken.imagePath || '',
       };
-
-      this.user$.next(user); // Aggiorna il BehaviorSubject dell'utente
+    } catch (error) {
+      console.error('Errore nella decodifica del token JWT:', error);
+      return null;
     }
-
-    const storedUser = sessionStorage.getItem('user');
-    if (storedUser) {
-      this.user$.next(JSON.parse(storedUser)); // Ripristina l'utente dal sessionStorage
-    }
-  }
-
-  // Questo metodo mi consente di salvare il token nella session storage dell'utente che fa l'accesso
-  public setToken(token: string): void {
-    this.userToken$.next(token); // Aggiorna il BehaviorSubject del token
-    sessionStorage.setItem('authToken', token); // Salva il token nella sessionStorage
-
-    // Decodifica il token JWT
-    const decodedToken = jwtDecode<{
-      id: number;
-      email: string;
-      role: string;
-      surname: string;
-      name: string;
-      imagePath: string;
-    }>(token);
-
-    // Crea un oggetto User basato sui dati del token
-    const user: User = {
-      id: decodedToken.id,
-      email: decodedToken.email,
-      role: decodedToken.role,
-      surname: decodedToken.surname || '', // Gestione del campo "surname"
-      name: decodedToken.name || '', // Gestione del campo "name"
-      password: '', // Vuoto, il token non contiene la password
-      imagePath: decodedToken.imagePath || '', // Gestione del campo "imagePath"
-    };
-
-    this.user$.next(user); // Aggiorna il BehaviorSubject dell'utente
-    sessionStorage.setItem('user', JSON.stringify(user)); // Salva l'utente nella sessionStorage
   }
 
   // Metodo per effettuare l'accesso
@@ -89,10 +100,7 @@ export class AuthService {
     password: string
   ): Observable<{ token: string }> {
     // Oggetto per la richiesta di "login" che mandiamo poi al server. Costituisce il body della chiamata HTTP di tipo "post"
-    const loginRequest = {
-      email: email,
-      password: password,
-    };
+    const loginRequest: LoginRequest = { email, password };
 
     /** "{ withCredentials: true }" pour permettre l'envoie des cookies tra il frontend e le backend */
     return this.http
@@ -101,10 +109,8 @@ export class AuthService {
       })
       .pipe(
         tap((response) => {
-          const token = response.token;
-
           // Imposta il token e decodifica i dati
-          this.setToken(token);
+          this.setToken(response.token);
         }),
         catchError(this.handleError('login'))
       );
@@ -118,12 +124,8 @@ export class AuthService {
     password: string
   ): Observable<User> {
     // Oggetto per la richiesta di "registrazione" che mandiamo poi al server. Costituisce il body della chiamata HTTP di tipo "post"
-    const registerRequest = {
-      surname: surname,
-      name: name,
-      email: email,
-      password: password,
-    };
+    const registerRequest: RegisterRequest = { surname, name, email, password };
+
     return this.http
       .post<User>(`${this.apiBaseUrl}/register`, registerRequest)
       .pipe(catchError(this.handleError('register')));
@@ -149,8 +151,7 @@ export class AuthService {
   public logout(): void {
     this.user$.next(null);
     this.userToken$.next(null);
-    sessionStorage.removeItem('user');
-    sessionStorage.removeItem('authToken');
+    sessionStorage.removeItem('authJWToken');
   }
 
   // Verifica se l'utente è autenticato
