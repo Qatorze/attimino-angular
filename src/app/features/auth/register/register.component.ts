@@ -7,9 +7,10 @@ import { emailValidator } from '../../../core/Validators/email.validator';
 import { passwordMatchValidator } from '../../../core/Validators/passwordsmatches.validators';
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.scss',
+    selector: 'app-register',
+    templateUrl: './register.component.html',
+    styleUrl: './register.component.scss',
+    standalone: false
 })
 export class RegisterComponent implements OnInit {
   public form!: FormGroup;

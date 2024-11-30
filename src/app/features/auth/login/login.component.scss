@@ -1,5 +1,41 @@
-.loading-icon {
-  color: #007bff; /* Colore blu */
-  font-size: 2rem; /* Dimensione */
-  margin: 10px;
+/* Contenitore del bottone per posizionamento relativo */
+.button-container {
+  width: 100%;
+}
+
+/* Assicurati che il pulsante abbia una larghezza fissa per non cambiare dimensioni */
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 100px; /* Imposta una larghezza minima */
+  height: 30px; /* Imposta un'altezza costante */
+}
+
+/* Nascondi l'icona quando non è in carreggiamento */
+.loading-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #007bff; /* Colore dell'icona */
+  animation: spin 1s linear infinite; /* Animazione di rotazione */
+}
+
+/* Stile dell'icona dentro il bottone */
+.loading-spinner fa-icon {
+  font-size: 1.2rem; /* Più grande per visibilità */
+}
+
+/* Nascondi il testo "Sign in" durante il caricamento */
+.button-text {
+  display: inline-block;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

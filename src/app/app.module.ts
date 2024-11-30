@@ -10,6 +10,7 @@ import {
   provideHttpClient,
   withInterceptorsFromDi,
 } from '@angular/common/http';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent, PageNotFoundComponent],
@@ -19,6 +20,7 @@ import {
     NgOptimizedImage,
     ReactiveFormsModule,
     FormsModule,
+    FontAwesomeModule,
   ],
 
   providers: [provideHttpClient(withInterceptorsFromDi())],

@@ -38,18 +38,17 @@
       <p class="errorText">{{ formErrors["form"].message }}</p>
     </div>
     <!-- <button class="btn btn-primary mb-5 mt-10">Sign in</button> -->
-    <!-- Pulsante o indicatore di caricamento -->
-    <div class="button-container mt-10">
-      <!-- Mostra lo spinner durante il caricamento -->
-      <button class="btn btn-primary mb-5" *ngIf="!loading" type="submit">
-        Sign in
-      </button>
+    <!-- Pulsante con condizione ternaria -->
+    <div class="button-container mt-20 d-flex flex-justify-content-center">
+      <button class="btn" type="submit" [disabled]="loading">
+        <!-- Testo "Sign in" visibile solo quando non è in caricamento -->
+        <span class="button-text" *ngIf="!loading">Sign in</span>
 
-      <div class="loading-spinner mb-5" *ngIf="loading">
-        <span>Caricamento...</span>
-        <i class="fa fa-spinner"></i>
-        <!-- Icona con animazione -->
-      </div>
+        <!-- Spinner visibile solo quando è in caricamento -->
+        <div class="loading-spinner" *ngIf="loading">
+          <fa-icon [icon]="faSpinner" class="spinner"></fa-icon>
+        </div>
+      </button>
     </div>
   </form>
 </div>

@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { NgOptimizedImage } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -15,6 +16,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
     NgOptimizedImage,
     ReactiveFormsModule,
     FormsModule,
+    FontAwesomeModule,
   ],
 })
 export class AuthModule {}
