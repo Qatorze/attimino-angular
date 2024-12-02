@@ -10,6 +10,11 @@ export const preventLoggedInGuard: CanActivateFn = (route, state) => {
   if (authService.isAuthenticated()) {
     const userRole = authService.getUserRole(); // Ottieni il ruolo dell'utente loggato
 
+    // Evita il loop di reindirizzamento se l'utente è già nella pagina di login
+    if (state.url === '/auth/login') {
+      return false;
+    }
+
     // Se l'utente è autenticato e ha un ruolo specifico
     if (userRole === 'user') {
       // Se il ruolo è 'user', lo redirigi alla pagina del feed con id e nome

@@ -24,7 +24,7 @@ export class AuthService {
   );
 
   constructor(private http: HttpClient, private router: Router) {
-    const token = sessionStorage.getItem('authJWToken');
+    const token = sessionStorage.getItem('Attimino_JWToken');
     if (token) {
       this.userToken$.next(token);
       this.setToken(token); // Decodifica e imposta il token
@@ -47,7 +47,7 @@ export class AuthService {
       // Controlla se il ruolo è "admin" o "user"
       if (decodedToken.role === 'admin' || decodedToken.role === 'user') {
         this.userToken$.next(token); // Aggiorna il BehaviorSubject del token
-        sessionStorage.setItem('authJWToken', token); // Salva il token nella sessionStorage
+        sessionStorage.setItem('Attimino_JWToken', token); // Salva il token nella sessionStorage
 
         // Aggiorna i dati dell'utente dal token
         const user = this.getUserFromToken();
@@ -151,7 +151,7 @@ export class AuthService {
   public logout(): void {
     this.user$.next(null);
     this.userToken$.next(null);
-    sessionStorage.removeItem('authJWToken');
+    sessionStorage.removeItem('Attimino_JWToken');
   }
 
   // Verifica se l'utente è autenticato

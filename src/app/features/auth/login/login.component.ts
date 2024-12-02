@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs';
 import { AuthService } from '../../../core/services/auth.service';
 import { emailValidator } from '../../../core/Validators/email.validator';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'; // Icona "spinner" (solido)
-import { faSmile } from '@fortawesome/free-regular-svg-icons'; // Icona "smile" (regolare)
 
 @Component({
   selector: 'app-login',
