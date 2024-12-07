@@ -36,3 +36,21 @@
     }
   }
 }
+
+// Ce code est apliqué  au composant search-bar
+// Il est présent ici car le HTML de cette div est présent le HTML du composant du header.component
+.overlay {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 0px;
+  min-height: 100%;
+  min-width: 100%;
+  background-color: rgba(54, 53, 52, 0.514);
+  backdrop-filter: blur(3px);
+  z-index: 900;
+}
+.search-container {
+  z-index: 1000;
+  margin-top: 120px; // Fait descendre de 120px la Search Modale
+}

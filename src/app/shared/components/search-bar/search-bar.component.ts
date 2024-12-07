@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import { faSearch, faClose } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
-  selector: 'app-header',
+  selector: 'app-search-bar',
   standalone: false,
-  templateUrl: './header.component.html',
-  styleUrl: './header.component.scss',
+  templateUrl: './search-bar.component.html',
+  styleUrl: './search-bar.component.scss'
 })
-export class HeaderComponent {
+export class SearchBarComponent {
   faSearch = faSearch;
-
+  faClose = faClose;
   showModal = false;
-
+  
   toggleModal(): void {
     this.showModal = !this.showModal;
   }

@@ -1,0 +1,131 @@
+// ========================================
+// MODALE BARRE DE RECHERCHE
+// ========================================
+
+.search-bar-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 40rem;
+    height: 3rem;
+    padding: 0.7rem;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    color: var(--dark-grey);
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.search-bar-container input {
+    flex: 1;
+    padding: 0.5rem;
+    border: none;
+    border-radius: 4px;
+    margin-left: 10px;
+}
+
+.search-bar-container input:focus {
+    outline: none; 
+    box-shadow: none;
+    border: none;
+}
+
+.search-bar input::placeholder {
+    font-size: 15px;
+}
+
+.search-input-text {
+    font-family: var(--font-family-primary);
+    color: var(--dark-grey);
+    font-size: 15px;
+}
+
+.close-search {
+    color: var(--light-grey);
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: opacity 0.4s ease-out, transform 0.3s ease-out;
+
+    :hover {
+        color: var(--dark-grey);
+    }
+  }
+
+.search-results {
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+
+    /* Cibler la scrollbar de la div .search-results */
+    ::-webkit-scrollbar {
+        width: 13px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: #f3f2ea;
+        border-radius: 10px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: linear-gradient( #ff9f22,#e7d319);
+        border-radius: 10px;
+      }
+}
+
+
+.search-result-content {
+    max-height: 340px;
+    margin-top: 7px;
+    overflow-y: scroll;
+}
+
+
+.search-result-type {
+    font-size: 14px;
+    font-weight: var(--fw-semibold);
+    color: var(--primary-color-black);
+  }
+  
+  .search-event {
+    display: flex;
+    align-items: center;
+    height: 70px;
+    width: 100%;
+    margin-top: 14px;
+  }
+  .search-event img {
+    display: block;
+    width: 70px;
+    height: 70px;
+    margin-right: 10px;
+    border-radius: var(--border-radius-1);
+    object-fit: cover;
+    object-position: center;
+  }
+  .search-event-description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+  .search-event-description p {
+    margin: auto;
+    width: 100%;
+    min-width: 400px;
+  }
+  
+  .search-event-title {
+    font-size: 15px;
+    font-weight: var(--fw-semibold);
+  }
+  .search-event-date {
+    font-size: 14px;
+    color: var(--dark-grey);
+  }
+  .search-event-place {  
+    font-size: 14px;
+    color: var(--dark-grey);
+  }
+  

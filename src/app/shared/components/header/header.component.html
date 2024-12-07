@@ -19,8 +19,8 @@
             <a href="">Voir plus...</a>
           </li>
         </ul>
-        <button class="button-secondary-yellow">
-          <i class="fas fa-search">O</i>
+        <button class="button-secondary-yellow" (click)="toggleModal()" >
+          <fa-icon [icon]="faSearch" [size]="'1x'"></fa-icon>
         </button>
         <button class="button-primary-black-v2">
           <p>Se connecter</p>
@@ -28,4 +28,14 @@
       </div>
     </div>
   </nav>
+</div>
+
+<!-- ICI COMMENCE LA SEARCH MODALE -->
+
+<div class="overlay" *ngIf="showModal" >
+  <div class="search-container" (clickOutside)="closeModal()"
+appClickOutsideModal >
+
+    <app-search-bar></app-search-bar>
+  </div>
 </div>
