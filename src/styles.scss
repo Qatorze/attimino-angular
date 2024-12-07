@@ -1,4 +1,21 @@
-* {
+// ========================================
+// ATTIMINO ©, TOUS DROITS RÉSERVÉS
+// ========================================
+
+// ========================================
+// IMPORT POLICES GOOGLE FONTS
+// ========================================
+
+@import url('https://fonts.googleapis.com/css2?family=Hind:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+// ========================================
+// REINITIALISATION DU STYE CSS
+// ========================================
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -18,38 +35,116 @@ a {
   cursor: pointer;
 }
 
+body {
+  min-height: 100vh;
+  background-color: var(--primary-color-white);
+  font-family: var(--font-family-primary);
+}
+
+// ========================================
+// DEFINITION DES CUSTOMED PROPERTIES
+// ========================================
+
 /*Definition de variables*/
 :root {
-  --font-family: "Kalam", cursive;
-  /* Colore principale (Verde Oliva) */
-  --primary: #b1a64b;
+  /* Polices */
+  --font-family-primary: "Hind", sans-serif;
+  --font-family-secondary: /* AJOUTER POLICE ICI */;
+  --font-family-terciary: "Inter", sans-serif;
 
-  /* Colore secondario (Beige Chiaro) */
-  --secondary: #8c6e45;
-  --secondary-2: #dcd6ba;
+  /* Couleurs */
+  --primary-color-white: #FFFFFF;
+  --primary-color-black: #000000;
+  --secondary-color-yellow: #FFD700;
+  --secondary-color-green: #0F8548;
 
-  --accent: #4b8490; /* Blu Grigio */
-  --accent-blue: #a1b8c8; /* Blu Polvere Chiaro */
-  --accent-blueLight: #d1e0e8; /* Blu Chiaro/Grigio Neutro */
-
-  /* Neutri */
-  --lightGray: #ddd;
-  --text-regular: #333; /* Testo regolare */
-
-  /* Aggiunto un bianco sporco per sfondi */
+  /* Couleurs neutres */
+  --light-grey: #dddddd;
+  --dark-grey: #4B4B4B;
+  --text-regular: #333;
   --background-light: #efefef;
 
-  /* Aggiunto un grigio scuro per contrasto */
-  --dark-gray: #4b4b4b;
+  /* Dégradé de couleurs */
+  --secondary-color-yellow-dark-100: #ffbb00;
+  --secondary-color-yellow-dark-200: #eb9901;
+  --secondary-color-yellow-dark-300: #cc8c01;
+  --primary-color-black-light-100: #141414;
+  --primary-color-black-light-200: #1e1e1e;
+  --primary-color-white-dark-100: #f7f7f7;
+  --primary-color-white-dark-200: #dadada;
+
+  /* Gradient */
+  --primary-color-white-gradient: linear-gradient(135deg, #FFFFFF 0%, #E0E0E0 100%);
+  --primary-color-black-gradient: linear-gradient(135deg, #000000 0%, #333333 100%);
+  --secondary-color-yellow-gradient: linear-gradient(135deg, #FFD700 0%, #FFC107 100%);
+  --secondary-color-green-gradient: linear-gradient(135deg, #0F8548 0%, #0A5834 100%);
+
+  /* Font Sizes */
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem; /* Medium (16px) */
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.5rem;
+  --fs-xxl: 2rem;
+  --fs-xxxl: 3rem;
+
+  /* Font Weights */
+  --fw-thin: 100;
+  --fw-extra-light: 200;
+  --fw-light: 300;
+  --fw-regular: 400; /* Regular */
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+  --fw-extra-bold: 800;
+  --fw-black: 900;
+
+  /* Breakpoints */
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+
+  /* Border */ 
+  --border-width-none: 0px;
+  --border-width-thin: 1px;
+  --border-width-medium: 2px; /* Bordures standard */
+  --border-width-thick: 4px;
+
+  /* Border radius */
+  --border-radius-0: 0px;
+  --border-radius-1: 5px;
+  --border-radius-2: 8px;
+  --border-radius-3: 12px;
+  --border-radius-4: 16px;
+  --border-radius-5: 24px;
+
+  /* Espacements */
+  --espace-0: 0px;
+  --espace-1: 3px;
+  --espace-2: 5px;
+  --espace-3: 7px;
+  --esoace-5: 10px;
+  
+  /* Espacement */
+  --space-x-1: 1.5rem;
 }
 
-body {
-  padding: 0 100px;
-  min-height: 100vh;
-  background-color: var(--background-light);
-}
+// ========================================
+// STYLE CSS RÉUTILISÉ
+// ========================================
 
-// Layout
+
+
+/* Layouts */
+
+.container {
+  width: 100%;
+  padding-right: var(--space-x-1, .75rem);
+  padding-left: var(--space-x-1, .75rem);
+  margin-right: auto;
+  margin-left: auto;
+}
 
 .module-container {
   background-color: var(--primary);
@@ -62,138 +157,165 @@ body {
   margin: 0 40px;
 }
 
-.d-flex {
-  display: flex;
-}
+/* Propriétées flexbox */
 
-.flex-row {
-  flex-direction: row;
-}
+.d-flex { display: flex; }
 
-.flex-column {
-  flex-direction: column;
-}
+.flex-row { flex-direction: row; }
 
-.flex-justify-content-center {
-  justify-content: center;
-}
+.flex-column { flex-direction: column; }
 
-.flex-justify-content-between {
-  justify-content: space-between;
-}
+.flex-justify-content-center { justify-content: center; }
 
-.flex-align-items-center {
-  align-items: center;
-}
+.flex-justify-content-between { justify-content: space-between; }
 
-.flex-align-items-between {
-  align-items: space-between;
-}
+.flex-align-items-center { align-items: center; }
+
+.flex-align-items-between { align-items: space-between; }
 
 .flex-fill {
-  flex: 1 1 auto; // Pour que l'élément prenne tout l'espace disponible
+  // Pour que l'élément prenne tout l'espace disponible
+  flex: 1 1 auto; 
 }
 
-.flex-30 {
-  flex: 1 1 30%;
-}
+.flex-30 { flex: 1 1 30%; }
 
-.flex-40 {
-  flex: 1 1 40%;
-}
+.flex-40 { flex: 1 1 40%; }
 
-.flex-50 {
-  flex: 1 1 50%;
-}
+.flex-50 { flex: 1 1 50%; }
 
-.flex-60 {
-  flex: 1 1 60%;
-}
+.flex-60 { flex: 1 1 60%; }
 
-.flex-70 {
-  flex: 1 1 70%;
-}
+.flex-70 { flex: 1 1 70%; }
 
 //Utils
 
-.w-50 {
-  width: 50%;
+.w-50 { width: 50%; }
+
+.w-100 { width: 100%; }
+
+.p-5 { padding: 5px; }
+
+.p-10 { padding: 10px; }
+
+.p-15 { padding: 15px; }
+
+.p-20 { padding: 20px;
 }
 
-.w-100 {
-  width: 100%;
+.p-25 { padding: 25px; }
+
+.m-5 { margin: 5px; }
+
+.m-10 { margin: 10px; }
+
+.m-15 { margin: 15px; }
+
+.m-20 { margin: 20px; }
+
+.m-25 { margin: 25px; }
+
+.mt-5 { margin-top: 5px; }
+
+.mt-10 { margin-top: 10px; }
+
+.mt-20 { margin-top: 20px; }
+
+.mt-25 { margin-top: 25px; }
+
+.mb-5 { margin-bottom: 5px; }
+
+.mb-10 { margin-bottom: 10px; }
+
+.mb-20 { margin-bottom: 20px; }
+
+.mb-25 { margin-bottom: 25px; }
+
+
+// ========================================
+// MATERIAL DESIGN
+// ========================================
+
+/* Bouttons et variantes */
+
+
+// Boutons Primaires Noirs
+.button-primary-black {
+  display: flex;
+  padding: 0.45rem 0.7rem;
+  background-color: var(--primary-color-black);
+  color: var(--primary-color-white);
+  border: 2px solid var(--primary-color-black);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  cursor: pointer;
+  gap: var(--espace-3);
+
+  &:hover {
+    background: var(--primary-color-black-light-100);
+    border: 2px solid var(--primary-color-black-light-100);
+  }
+}
+.button-primary-black-v2 {
+  display: flex;
+  align-items: center;
+  padding:0.45rem 0.7rem;
+  background-color: inherit;
+  color: var(--primary-color-black);
+  border: 2px solid var(--primary-color-black);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  cursor: pointer;
+  gap: var(--espace-3);
+  
+  &:hover {
+    background: var(--primary-color-white-dark-100);
+  }
+}
+.button-primary-black-v3 {
+  padding: 0.45rem 0;
+  background-color: inherit;
+  color: var(--primary-color-black);
+  border: none;
+  position: relative;
+  display: inline-block;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px; /* Épaisseur du soulignement */
+    width: 0%;
+    background-color: var(--primary-color-black); /* La couleur de l'underline */
+    transition: width 0.5s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
 }
 
-.p-5 {
-  padding: 5px;
-}
+// Boutons Secondaires Jaunes
+.button-secondary-yellow {
+  display: flex;
+  padding: 0.45rem 0.7rem;
+  background-color: var(--secondary-color-yellow);
+  color: var(--primary-color-black);
+  border: 2px solid var(--secondary-color-yellow);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  cursor: pointer;
+  gap: var(--espace-3);
+  transition: opacity 0.3s ease, background-color 0.3s ease; /* Transition douce */
 
-.p-10 {
-  padding: 10px;
-}
+  &:hover {
+    opacity: 0.7; /* Changement d'opacité au survol */
+  }
 
-.p-15 {
-  padding: 15px;
-}
-
-.p-20 {
-  padding: 20px;
-}
-
-.p-25 {
-  padding: 25px;
-}
-
-.m-5 {
-  margin: 5px;
-}
-
-.m-10 {
-  margin: 10px;
-}
-
-.m-15 {
-  margin: 15px;
-}
-
-.m-20 {
-  margin: 20px;
-}
-
-.m-25 {
-  margin: 25px;
-}
-
-.mt-5 {
-  margin-top: 5px;
-}
-
-.mt-10 {
-  margin-top: 10px;
-}
-
-.mt-20 {
-  margin-top: 20px;
-}
-
-.mt-25 {
-  margin-top: 25px;
-}
-
-.mb-5 {
-  margin-bottom: 5px;
-}
-
-.mb-10 {
-  margin-bottom: 10px;
-}
-
-.mb-20 {
-  margin-bottom: 20px;
-}
-
-.mb-25 {
-  margin-bottom: 25px;
+  &:active {
+    opacity: 1.7; /* Changement d'opacité au clic */
+  }
 }
 
 // Components
@@ -207,3 +329,4 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
