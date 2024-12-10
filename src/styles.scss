@@ -60,9 +60,12 @@ body {
 
   /* Couleurs neutres */
   --light-grey: #dddddd;
+  --light-grey-2: #f5f5f5;
   --dark-grey: #4B4B4B;
   --text-regular: #333;
   --background-light: #efefef;
+  --light-pink: #FFF0F3;
+  --light-yellow: #fcf8e4;
 
   /* Dégradé de couleurs */
   --secondary-color-yellow-dark-100: #ffbb00;
@@ -87,6 +90,7 @@ body {
   --fs-xl: 1.5rem;
   --fs-xxl: 2rem;
   --fs-xxxl: 3rem;
+  --fs-display-1: 5rem;
 
   /* Font Weights */
   --fw-thin: 100;
@@ -128,6 +132,7 @@ body {
   
   /* Espacement */
   --space-x-1: 1.5rem;
+  --space-x-2: 4rem
 }
 
 // ========================================
@@ -140,10 +145,17 @@ body {
 
 .container {
   width: 100%;
-  padding-right: var(--space-x-1, .75rem);
-  padding-left: var(--space-x-1, .75rem);
+  max-width: 1394px;
   margin-right: auto;
   margin-left: auto;
+
+}
+
+.container-2 {
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 24px;
 }
 
 .module-container {
@@ -250,6 +262,8 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   gap: var(--espace-3);
+  height: fit-content;
+  width: fit-content;
 
   &:hover {
     background: var(--primary-color-black-light-100);
@@ -267,6 +281,8 @@ body {
   text-transform: uppercase;
   cursor: pointer;
   gap: var(--espace-3);
+  height: fit-content;
+  width: fit-content;
   
   &:hover {
     background: var(--primary-color-white-dark-100);
@@ -277,8 +293,12 @@ body {
   background-color: inherit;
   color: var(--primary-color-black);
   border: none;
+  text-transform: uppercase;
+  font-weight: var(--fw-semibold);
   position: relative;
   display: inline-block;
+  height: fit-content;
+  width: fit-content;
 
   &::after {
     content: "";
@@ -296,6 +316,76 @@ body {
   }
 }
 
+
+// Set de bouttons Blancs 
+
+.button-primary-white {
+  display: flex;
+  padding: 0.45rem 0.7rem;
+  background-color: var(--primary-color-black);
+  color: var(--primary-color-white);
+  border: 2px solid var(--primary-color-white);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  cursor: pointer;
+  gap: var(--espace-3);
+  height: fit-content;
+  width: fit-content;
+
+  &:hover {
+    background: var(--primary-color-black-light-100);
+    border: 2px solid var(--primary-color-white);
+  }
+}
+
+.button-primary-white-v2 {
+  display: flex;
+  align-items: center;
+  padding:0.45rem 0.7rem;
+  background-color: inherit;
+  color: var(--primary-color-white);
+  border: 2px solid var(--primary-color-white);
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  cursor: pointer;
+  gap: var(--espace-3);
+  height: fit-content;
+  width: fit-content;
+  
+  &:hover {
+    background: var(--primary-color-white-dark-100);
+    color: var(--primary-color-black);
+  }
+}
+
+.button-primary-white-v3 {
+  padding: 0.45rem 0;
+  background-color: inherit;
+  color: var(--primary-color-white);
+  border: none;
+  position: relative;
+  display: inline-block;
+  height: fit-content;
+  width: fit-content;
+
+  &::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px; /* Épaisseur du soulignement */
+    width: 0%;
+    background-color: var(--primary-color-white); /* La couleur de l'underline */
+    transition: width 0.5s ease;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+
+
 // Boutons Secondaires Jaunes
 .button-secondary-yellow {
   display: flex;
@@ -308,6 +398,8 @@ body {
   cursor: pointer;
   gap: var(--espace-3);
   transition: opacity 0.3s ease, background-color 0.3s ease; /* Transition douce */
+  height: fit-content;
+  width: fit-content;
 
   &:hover {
     opacity: 0.7; /* Changement d'opacité au survol */
