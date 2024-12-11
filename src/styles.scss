@@ -260,10 +260,10 @@ body {
   border: 2px solid var(--primary-color-black);
   font-weight: var(--fw-semibold);
   text-transform: uppercase;
-  cursor: pointer;
   gap: var(--espace-3);
   height: fit-content;
   width: fit-content;
+  cursor: pointer;
 
   &:hover {
     background: var(--primary-color-black-light-100);
@@ -279,10 +279,10 @@ body {
   border: 2px solid var(--primary-color-black);
   font-weight: var(--fw-semibold);
   text-transform: uppercase;
-  cursor: pointer;
   gap: var(--espace-3);
   height: fit-content;
   width: fit-content;
+  cursor: pointer;
   
   &:hover {
     background: var(--primary-color-white-dark-100);
@@ -299,6 +299,7 @@ body {
   display: inline-block;
   height: fit-content;
   width: fit-content;
+  cursor: pointer;
 
   &::after {
     content: "";
@@ -327,10 +328,10 @@ body {
   border: 2px solid var(--primary-color-white);
   font-weight: var(--fw-semibold);
   text-transform: uppercase;
-  cursor: pointer;
   gap: var(--espace-3);
   height: fit-content;
   width: fit-content;
+  cursor: pointer;
 
   &:hover {
     background: var(--primary-color-black-light-100);
@@ -347,10 +348,10 @@ body {
   border: 2px solid var(--primary-color-white);
   font-weight: var(--fw-semibold);
   text-transform: uppercase;
-  cursor: pointer;
   gap: var(--espace-3);
   height: fit-content;
   width: fit-content;
+  cursor: pointer;
   
   &:hover {
     background: var(--primary-color-white-dark-100);
@@ -367,6 +368,7 @@ body {
   display: inline-block;
   height: fit-content;
   width: fit-content;
+  cursor: pointer;
 
   &::after {
     content: "";
@@ -407,6 +409,86 @@ body {
 
   &:active {
     opacity: 1.7; /* Changement d'opacité au clic */
+  }
+}
+
+
+// Set Bouttons dropdown 
+
+// Boutton dropdown version blanche
+.dropdown {
+  cursor: pointer;
+  position: relative; /* Assure que le contenu est positionné par rapport à la dropdown */
+  min-width: 100px;
+  summary {
+    list-style: none;
+    &::before {
+      content: " 🇫🇷 ";
+      display: inline-block;
+      margin: 0 10px;
+    }
+  }
+
+  .dropdown-content {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px; /* Espace entre le summary et le contenu */
+    background: var(--primary-color-white);
+    min-width: 130px;
+    border: 1px solid var(--light-grey);
+    border-radius: var(--border-radius-4);
+    overflow: hidden;
+
+    a {
+      display: block;
+      color: var(--primary-color-black);
+      padding: 0.45rem 1rem;
+      min-width: 130px;
+      transition: opacity 0.3s ease, background-color 0.3s ease;
+      &:hover {
+        background-color: opacify($color: #4e4e4d1f, $amount: 0.001);
+      }
+    }
+  }
+}
+
+// Boutton Dropdown version noir 
+
+.dropdown-black {
+  cursor: pointer;
+  position: relative; /* Assure que le contenu est positionné par rapport à la dropdown */
+  min-width: 100px;
+  summary {
+    list-style: none;
+    &::before {
+      content: " 🇫🇷 ";
+      display: inline-block;
+      margin: 0 10px;
+    }
+  }
+
+  .dropdown-content-black {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px; /* Espace entre le summary et le contenu */
+    background: var(--primary-color-black);
+    min-width: 130px;
+    border: 1px solid #222222;
+    border-radius: var(--border-radius-4);
+    overflow: hidden;
+
+    a {
+      display: block;
+      color: var(--primary-color-white);
+      padding: 0.45rem 1rem;
+      min-width: 130px;
+      transition: opacity 0.3s ease, background-color 0.3s ease;
+      &:hover {
+        background-color: opacify($color: #ffffff15, $amount: 0.001);
+      }
+    }
   }
 }
 

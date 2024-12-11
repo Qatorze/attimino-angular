@@ -1,6 +1,50 @@
 .footer-container {
-  background-color: var(--dark-gray);
-  color: var(--primary-color-black);
-  height: 70px;
-  margin: 20px 0 0 0;
+  background-color: var(--primary-color-black);
+  color: var(--primary-color-white);
+  margin: 100px 0 0 0;
+  padding: 70px 0 40px 0;
+  .footer-content-top {
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid #ffffff44;
+    border-bottom: 1px solid #ffffff44;
+    padding: 60px 0;
+    .footer-links {
+      .footer-logo {
+        font-size: var(--fs-xxl);
+      }
+      p {
+        font-size: var(--fs-lg);
+        font-weight: var(--fw-semibold);
+        margin-bottom: 1.3rem;
+      }
+    }
+  }
+  a {
+    display: block;
+    padding-bottom: 0.7rem;
+    transition: opacity 0.3s ease, color 0.3s ease; /* Transition douce */
+    
+    &:hover {
+      color: opacify($color: #bdbdbdd2, $amount: 0.001);
+    }
+  }
+  .footer-content-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+    .footer-links {
+      display: flex;
+      li {
+        a {
+          margin: 0 10px;
+        }
+      }
+    }
+    .dropdown-content-black {
+      bottom: 100%; /* Positionne le contenu au-dessus du summary */
+      right: 0; /* Aligne le contenu avec le bord droit du dropdown */
+      margin-bottom: 10px; /* Espace entre le summary et le contenu */
+    }
+  }
 }
