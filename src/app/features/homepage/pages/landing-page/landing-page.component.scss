@@ -340,7 +340,7 @@
 .layout-3_hote {
     font-size: var(--fs-xxl);
     font-weight: var(--fw-medium);
-    width: 70%;
+    width: 85%;
     line-height: 1;
 }
 .layout-3_row {
@@ -356,7 +356,6 @@
 .layout-4 {
     display: flex;
     margin-top: 150px;
-    height: 400px;
     gap: 3rem;
 }
 
@@ -366,10 +365,8 @@
 
     img {
         width: 100%;
-        height: 100%;
-        object-fit: cover;
+        object-fit: fill;
         display: block;
-        border-radius: var(--border-radius-4);
     }
     .layout-4_content {
         display: flex;
